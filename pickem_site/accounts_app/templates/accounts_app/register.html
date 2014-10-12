@@ -1,0 +1,67 @@
+{% extends "accounts_app/layout.html" %}
+
+{% block style %}
+	<style>
+		label {
+			width:150px;
+		}
+	</style>
+{% endblock style %}
+
+{% block nav %}
+	<a href="{% url 'accounts_app:login' %}">Login</a>
+{% endblock nav %}
+
+{% block page_title %}
+	<h2>Register</h2>
+{% endblock page_title %}
+
+{% block content %}
+
+	{% for error in form.non_field_errors %}
+		<p class='red bold'>{{ error }}</p>
+	{% endfor %}
+
+	<form id='registerForm' method="post" action="{% url 'accounts_app:register' %}">
+		
+		{% csrf_token %}
+		
+		<p>
+			{% for error in form.username.errors %}
+				<p class='red bold'>{{ error }}</p>
+			{% endfor %}
+			<label for='id_username'>Username:</label>
+			{{ form.username }}
+		</p>
+		
+		<p>
+			{% for error in form.password.errors %}
+				<p class='red bold'>{{ error }}</p>
+			{% endfor %}
+			<label for='id_password'>Password:</label>
+			{{ form.password }}
+		</p>
+		
+		<p>
+			{% for error in form.confirm_password.errors %}
+				<p class='red bold'>{{ error }}</p>
+			{% endfor %}
+			<label for='id_confirm_password'>Confirm Password:</label>
+			{{ form.confirm_password }}
+		</p>
+		
+		<p>
+			<label/><input type="submit" value="Register">
+		</p>
+		
+	</form>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+	function main() {
+		document.getElementById('id_username').select();
+	}
+</script>
+{% endblock script %}

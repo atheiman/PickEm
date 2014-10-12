@@ -1,0 +1,22 @@
+{% extends "pickem_app/layout.html" %}
+
+{% block content %}
+	{% if weeks %}
+		<p>View picks:
+		{% for w in weeks %}
+			<a href='{% url 'pickem_app:pickset' view_user.username w %}'>{{ w }}</a>
+		{% endfor %}
+		</p>
+	{% else %}
+		<p>Error - template received no weeks.</p>
+	{% endif %}
+	{% if user %}
+		{% if user.email %}
+			<p>Email: <a href='mailto:{{ view_user.email }}' target='blank'>{{ view_user.email }}</a></p>
+		{% else %}
+			<p>No email provided</p>
+		{% endif %}
+	{% else %}
+		<p>Error - template received no user.</p>
+	{% endif %}
+{% endblock content %}

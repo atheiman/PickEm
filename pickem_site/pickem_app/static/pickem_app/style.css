@@ -1,0 +1,69 @@
+html, body {
+	height:calc(100% - 20px);
+	margin:5px;
+	min-width:650px;
+	min-height:300px;
+	max-width:900px;
+	font-size:100%;
+	font-family:"arial";
+	background-color:#eee;
+	color:#111;
+}
+
+/* properly display new html5 semantic elements in older browsers. */
+header, section, footer, aside, nav, main, article, figure { 
+	display: block;
+}
+
+section {
+	min-height:300px;
+}
+
+label {
+	display: inline-block;
+	text-align: right;
+	padding-right:5px;
+}
+
+input {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+table {  /* Use something like: <table border='1' cellpadding='5'> */
+	border-collapse:collapse;
+	text-align:left;
+}
+
+.narrowest { width:50px; }
+.narrower { width:100px; }
+.narrow { width:150px; }
+.wide { width:200px; }
+.wider { width:300px; }
+.widest { width:500px; }
+.large, .big { font-size:115%; }
+.larger, .bigger { font-size:130%; }
+.largest, .biggest { font-size:145%; }
+.small, .little { font-size:85%; }
+.smaller, .littler { font-size:70%; }
+.smallest, .littlest { font-size:65%; }
+.inline { display:inline; }
+.inline-block { display:inline-block; }
+.block { display:block; }
+.bold { font-weight: bold; }
+.bolder { font-weight: bolder; }
+.left { text-align:left; }
+.center { text-align:center; }
+.right { float:right; }
+.black { color:#111; }
+.gray, .grey { color:#444; }
+.white { color:#eee; }
+.red { color:red; }
+.green { color:green; }
+.bg-black { background-color:#111; }
+.bg-gray, .bg-grey { background-color:#444; }
+.bg-white { background-color:#eee; }
+.bg-red { background-color:red; }
+.bg-green { background-color:green; }
+.cursor-pointer { cursor:pointer; }
+.cursor-default { cursor:default; }

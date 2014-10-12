@@ -1,0 +1,19 @@
+{% extends "accounts_app/layout.html" %}
+
+{% block style %}
+	<style>
+		
+	</style>
+{% endblock style %}
+
+{% block content %}
+	
+	<p class='blue bold'>Successful Logout. Redirecting you to <a href="{% url 'pickem_app:index' %}">PickEm Home</a>.</p>
+	
+{% endblock content %}
+
+{% block script %}
+	<script>
+		setTimeout(function(){location.assign("{% url 'pickem_app:index' %}")},2000)
+	</script>
+{% endblock script %}

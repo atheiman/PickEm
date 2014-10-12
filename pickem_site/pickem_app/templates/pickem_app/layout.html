@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	{% block head %}
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'pickem_app/style.css' %}">
+		<title>{% block title %}NFL PickEm{% endblock %}</title>
+		{% block style %}
+		{% endblock style %}
+	{% endblock head %}
+</head>
+
+<body onload="main()">
+	
+	<header>
+		<h1 id="site_title" class='cursor-pointer' onclick="window.location.assign('{% url 'pickem_app:index' %}')">NFL PickEm</h1>
+		
+		<nav>
+			{% block nav %}
+				<a href="{% url 'pickem_app:users_list' %}">Users</a>
+				<a href="#">Groups</a>
+				<span class='right' id="authDiv">
+					{% if user.is_authenticated %}
+						Welcome, <a href="{% url 'accounts_app:profile' %}">{{ user.username }}</a> |
+						<a href="{% url 'accounts_app:logout' %}">Logout</a>
+					{% else %}
+						<a id='loginA' href="{% url 'accounts_app:login' %}">Login</a> |
+						<a href="{% url 'accounts_app:register' %}">Register</a>
+					{% endif %}
+				</span>
+			{% endblock nav %}
+		</nav>
+		
+	</header>
+	
+	<section>
+		
+		{% if page_title %}<h2 id='page_title'>{{ page_title | safe }}</h2>{% endif %}
+		
+		{% if message %}
+			<p class="blue bold">{{ message }}</p>
+		{% endif %}
+		
+		{% if error_message %}
+			<p class="red bold">{{ error_message }}</p>
+		{% endif %}
+		
+		<div id="content">
+			{% block content %}Error - block content received no content.{% endblock content%}
+		</div>
+	
+	</section>
+	
+	<footer>
+		<p>Created by Austin Heiman, powered by Django.</p>
+	</footer>
+	
+	<script src="{% static 'pickem_app/functions.js' %}"></script>
+	
+	<script>
+		function main() {}
+		
+		{% if not user.is_authenticated %}
+			var loginA = document.getElementById('loginA');
+			loginA.href = loginA.href + "?next=" + window.location.pathname;
+		{% endif %}
+	</script>
+	
+	{% block script %}
+	{% endblock script %}
+	
+</body>
+
+</html>

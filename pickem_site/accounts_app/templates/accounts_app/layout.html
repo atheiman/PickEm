@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	{% block head %}
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'accounts_app/style.css' %}">
+		<title>{% block title %}NFL PickEm{% endblock %}</title>
+		{% block style %}
+		{% endblock style %}
+	{% endblock head %}
+</head>
+
+<body onload="main()">
+	
+	<header>
+		
+		<h1 id="site_title">Account Management</h1>
+		
+		<nav>
+			{% block nav %}
+			{% endblock nav %}
+			<span class='right'>
+				<a href="{% url 'pickem_app:index' %}">NFL Pickem</a>
+			</span>
+		</nav>
+		
+		{% if message %}
+			<p class='blue bold'>{{ message }}</p>
+		{% endif %}
+		
+	</header>
+	
+	<section>
+		
+		{% block page_title %}
+		{% endblock page_title %}
+		
+		<div id="content">
+			{% block content %}Error - block content received no content.{% endblock content%}
+		</div>
+	
+	</section>
+	
+	<footer>
+		<p>Created by Austin Heiman, powered by Django.</p>
+	</footer>
+	
+	<script src="{% static 'accounts_app/functions.js' %}"></script>
+	
+	<script>
+		
+	</script>
+	
+	{% block script %}
+	{% endblock script %}
+	
+</body>
+
+</html>

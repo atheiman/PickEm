@@ -1,0 +1,84 @@
+{% extends "pickem_app/layout.html" %}
+
+{% block content %}
+	{% if weeks %}
+		<nav id='weeks'>
+			{% for w in weeks %}
+				<a href="{% url 'pickem_app:pickset' view_user.username w %}">{{ w }}</a>
+			{% endfor %}
+		</nav>
+	{% else %}
+		<p>Error - template received no weeks.</p>
+	{% endif %}
+	
+	{% if games %}
+		
+		<p class="large">Attempts: {{ pickset.attempts }}<br>
+		Score: {{ pickset.correct }}</p>
+		
+		<form name="pickForm" action="{% url 'pickem_app:api_pickset' pickset.id %}" method="post">
+		{% csrf_token %}
+		<table border="1" cellpadding='5' class="center">
+			{% for g in games %}
+				<tr>
+					<td class='gray smaller'>{{ g.short_date }}, {{ g.time }}</td>
+					<td>
+						<span class='gray smaller'>{{ g.away_team.return_record }}</span>
+						<span class="{% ifequal g.winner g.away_team %}bold{% endifequal %}">
+							{{ g.away_team.location }} {{ g.away_team.nickname }}
+						</span><span class="gray smaller">@</span>
+						<hr>
+						<span class='gray smaller'>{{ g.home_team.return_record }}</span>
+						<span class="{% ifequal g.winner g.home_team %}bold{% endifequal %}">
+							{{ g.home_team.location }} {{ g.home_team.nickname }}
+							(<span class="gameSpread">{{ g.spread }}</span>)
+						</span>
+					</td>
+					<td>
+						<input type="radio" name="game{{ g.id }}" value="{{ AWAY }}"
+						  {% if g.status == OTHER_UNAVAILABLE or g.status == IN_PROGRESS or g.status == COMPLETE or editable == False %}
+						  	disabled
+						  {% endif %}><hr>
+						<input type="radio" name="game{{ g.id }}" value="{{ HOME }}"
+						  {% if g.status == OTHER_UNAVAILABLE or g.status == IN_PROGRESS or g.status == COMPLETE or editable == False %}
+						  	disabled
+						  {% endif %}>
+					</td>
+					<td>
+						{{ g.status }}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+			{% if editable == True %}
+				<p><input type="submit" value="Submit Picks"></p>
+			{% endif %}
+		</form>
+	{% endif %}
+	
+{% endblock content %}
+
+{% block script %}
+<script>
+	{% if pickset %}
+		// select the picks that have already been made for this pickset
+		pickset = [];
+		// set up pickset as array of pick objects using pickset list received from view
+		{% for pick in pickset.picks.all %}
+			// p = new pick({{ pickset.id }}, {{ pick.game.id }}, '{{ pick.pick }}', '{{ pick.abbreviation }}')
+			var p = new pick({{ pickset.id }}, {{ pick.game.id }}, '{{ pick.pick }}', '{{ pick.abbreviation }}', '{{ pick.is_correct }}');
+			pickset.push(p);
+		{% endfor %}
+	{% else %}
+		// No picks made yet
+	{% endif %}
+	
+	for (var p in pickset) {
+		selectPick(pickset[p].gameId, pickset[p].pick);
+	}
+	
+	formatSpreads();
+	highlightCurrentAndSelectedWeek();
+	
+</script>
+{% endblock script %}

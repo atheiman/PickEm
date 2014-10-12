@@ -1,0 +1,91 @@
+{% extends "accounts_app/layout.html" %}
+
+{% block style %}
+	<style>
+		label {
+			width:150px;
+		}
+	</style>
+{% endblock style %}
+
+{% block nav %}
+	<a href="{% url 'accounts_app:logout' %}">Logout</a>
+{% endblock nav %}
+
+{% block page_title %}
+	<h2>Profile</h2>
+{% endblock page_title %}
+
+{% block content %}
+
+	{% for error in form.non_field_errors %}
+		<p class='red'>{{ error }}</p>
+	{% endfor %}
+
+	<form id='profileForm' method="post" action="{% url 'accounts_app:profile' %}">
+		
+		{% csrf_token %}
+		
+		<p>
+			<label for='id_username'>Username:</label>
+			{{ form.username }}
+			{% for error in form.username.errors %}
+				<span class='red'>{{ error }}</span>
+			{% endfor %}
+		</p>
+		
+		<p>
+			<label for='id_first_name'>First Name:</label>
+			{{ form.first_name }}
+			{% for error in form.first_name.errors %}
+				<span class='red'>{{ error }}</span>
+			{% endfor %}
+		</p>
+		
+		<p>
+			<label for='id_last_name'>Last Name:</label>
+			{{ form.last_name }}
+			{% for error in form.last_name.errors %}
+				<span class='red'>{{ error }}</span>
+			{% endfor %}
+		</p>
+		
+		<p>
+			<label for='id_email'>Email:</label>
+			{{ form.email }}
+			{% for error in form.email.errors %}
+				<span class='red'>{{ error }}</span>
+			{% endfor %}
+		</p>
+		
+		<p>
+			<label for='id_password'>Password:</label>
+			{{ form.password }}
+			{% for error in form.password.errors %}
+				<span class='red'>{{ error }}</span>
+			{% endfor %}
+		</p>
+		
+		<p>
+			<label for='id_confirm_password'>Confirm Password:</label>
+			{{ form.confirm_password }}
+			{% for error in form.confirm_password.errors %}
+				<span class='red'>{{ error }}</span>
+			{% endfor %}
+		</p>
+		
+		<p>
+			<label/><input type="submit" value="Update Profile">
+		</p>
+		
+	</form>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+	function main() {
+		document.getElementById('id_username').select();
+	}
+</script>
+{% endblock script %}
