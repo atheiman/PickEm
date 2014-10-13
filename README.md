@@ -25,7 +25,7 @@ root@server:/opt# source /opt/django_env/bin/activate
 (django_env)root@server:/opt# pip install --requirement PickEm/requirements.txt
 
 (django_env)root@server:/opt# cd PickEm/pickem_site
-(django_env)root@server:/opt# nohup python manage.py runserver 0.0.0.0:80 > /tmp/django_nohup.out &
+root@server:/opt# nohup /opt/django_env/bin/python /opt/PickEm/pickem_site/manage.py runserver 0.0.0.0:80 > /tmp/nohup_django.out &
 # This will run the server and log to /tmp/django_nohup.out rather than the console
 (django_env)root@server:/opt# exit
 ```
