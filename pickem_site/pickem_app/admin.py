@@ -39,13 +39,13 @@ make_in_progress.short_description = "Mark selected games as In Progress"
 
 def make_not_yet_started(modeladmin, request, queryset):
 	queryset.update(status=NOT_YET_STARTED)
-make_in_progress.short_description = "Mark selected games as Not Yet Started"
+make_not_yet_started.short_description = "Mark selected games as Not Yet Started"
 
 
 
 def make_complete(modeladmin, request, queryset):
 	queryset.update(status=COMPLETE)
-make_in_progress.short_description = "Mark selected games as Complete"
+make_complete.short_description = "Mark selected games as Complete"
 
 
 
