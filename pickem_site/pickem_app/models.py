@@ -39,8 +39,8 @@ class Game(models.Model):
 	home_score = models.PositiveIntegerField(blank=True, null=True)
 	week = models.PositiveIntegerField(validators=[MaxValueValidator(22)])
 	spread = models.FloatField(default=0)
-	winner = models.ForeignKey(Team, related_name='games_won_su', blank=True, null=True)
-	spread_winner = models.ForeignKey(Team, related_name='games_won_ats', blank=True, null=True)
+	# winner = models.ForeignKey(Team, related_name='games_won_su', blank=True, null=True)
+	# spread_winner = models.ForeignKey(Team, related_name='games_won_ats', blank=True, null=True)
 	STATUS_CHOICES = (
 		(NOT_YET_STARTED, "Not yet started"),
 		(IN_PROGRESS, "In progress"),
@@ -66,6 +66,26 @@ class Game(models.Model):
 		if return_string[0] == '0':
 			return_string = return_string[1:]
 		return return_string
+	
+	def winner(self):
+		if self.home_score is None or self.away_score is None:
+			return None
+		elif self.home_score > self.away_score:
+			return self.home_team
+		elif self.home_score < self.away_score:
+			return self.away_team
+		else:
+			return None
+	
+	def spread_winner(self):
+		if self.home_score is None or self.away_score is None:
+			return None
+		elif self.home_score + self.spread > self.away_score:
+			return self.home_team
+		elif self.home_score + self.spread < self.away_score:
+			return self.away_team
+		else:
+			return None
 	
 	# Get all Chiefs home games:
 	# Game.objects.filter(home_team=Team.objects.get(abbreviation='KC'))
@@ -103,7 +123,7 @@ class Pickset(models.Model):
 		self.save()
 	
 	def __unicode__(self):
-		return "pickset_id %i, username %s, week %i" % (self.id, self.username, self.week)
+		return "pickset_id %i, user %s, week %i" % (self.id, self.user, self.week)
 
 
 

@@ -59,10 +59,17 @@ class GameAdmin(admin.ModelAdmin):
 		'spread',
 		'away_score',
 		'home_score',
-		'winner',
+	]
+	list_display = [
+		'id',
+		'week',
+		'away_team',
+		'home_team',
+		'status',
+		'date_time',
+		'spread',
 		'spread_winner',
 	]
-	list_display = ['id', 'week', 'away_team', 'home_team', 'status', 'date_time', 'spread', 'spread_winner']
 	list_filter = ['week',]
 	ordering = ['date_time']
 	actions = [make_in_progress, make_not_yet_started, make_complete]
