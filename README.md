@@ -1,17 +1,6 @@
 # NFL PickEm Web App
 
-## Setup
-
-### apt-get Packages Required
-
-- postgresql-client
-- python-pip
-- git
-- libpq-dev
-- build-essential
-- python-dev
-
-### Setup Instructions
+## Setup Instructions
 
 The instructions below will run this app on a clean Ubuntu server. (Think AWS!)
 
@@ -41,3 +30,6 @@ root@server:/opt# source /opt/django_env/bin/activate
 (django_env)root@server:/opt# exit
 ```
 
+## App Information
+
+This application contains two separate Django apps, `accounts_app` and `pickem_app`. `accounts_app` controls authentication and the django.contrib.auth.models `User` model. The `pickem_app` is responsible for displaying Users' `picksets` and `groups`.
