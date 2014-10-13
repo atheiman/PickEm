@@ -32,4 +32,4 @@ root@server:/opt# source /opt/django_env/bin/activate
 
 ## App Information
 
-This application contains two separate Django apps, `accounts_app` and `pickem_app`. `accounts_app` controls authentication and the django.contrib.auth.models `User` model. The `pickem_app` is responsible for displaying users' `picksets` and `groups`.
+This site contains two separate Django apps, `accounts_app` and `pickem_app`. `accounts_app` controls authentication and the django.contrib.auth.models `User` model. The `pickem_app` is responsible for displaying users' `picksets` and `groups`.
