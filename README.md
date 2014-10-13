@@ -2,7 +2,7 @@
 
 ## Setup Instructions
 
-The instructions below will run this app on a clean Ubuntu server. (Think AWS!)
+The commands and instructions below will run this site on a clean Ubuntu server. (Think AWS!)
 
 ```
 user@server:/home/user$ sudo su
