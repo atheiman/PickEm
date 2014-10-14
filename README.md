@@ -4,7 +4,7 @@
 
 The commands and instructions below will run this site on a clean Ubuntu server. (Think AWS!)
 
-```
+```Shell
 user@server:/home/user$ sudo su
 root@server:/root# apt-get update; apt-get upgrade -qy; apt-get dist-upgrade; unattended-upgrade;
 root@server:/root# apt-get install postgresql-client python-pip git libpq-dev build-essential python-dev
