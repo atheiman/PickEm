@@ -24,7 +24,7 @@ $ pip install --requirement PickEm/requirements.txt
 
 ### Create a local dev database
 ```Shell
-# Create the local
+# Create the local sqlite db:
 $ python manage.py migrate --settings=settings.dev
 
 # Get a batch of data from the prod db:
