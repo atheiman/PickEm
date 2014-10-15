@@ -44,6 +44,12 @@ python manage.py runserver 0.0.0.0:8080 --settings=settings.dev
 
 
 
+## App Information
+
+This site contains two separate Django apps, `accounts_app` and `pickem_app`. `accounts_app` controls authentication and the django.contrib.auth.models `User` model. The `pickem_app` is responsible for displaying users' `picksets` and `groups`.
+
+
+
 ## Production Setup Notes
 
 The commands and instructions below were used to run this site on a clean Ubuntu AWS EC2 instance.
@@ -78,9 +84,3 @@ root@server:/opt# nohup /opt/django_env/bin/python /opt/PickEm/pickem_site/manag
 
 (django_env)root@server:/opt# exit
 ```
-
-
-
-## App Information
-
-This site contains two separate Django apps, `accounts_app` and `pickem_app`. `accounts_app` controls authentication and the django.contrib.auth.models `User` model. The `pickem_app` is responsible for displaying users' `picksets` and `groups`.
