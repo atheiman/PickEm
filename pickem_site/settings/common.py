@@ -19,9 +19,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'r*8=s_dy-31v(j@zx_!fyt%4nwrx5fe%z0f2)&d^ji6^d1+if$'
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = (
