@@ -19,11 +19,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'r*8=s_dy-31v(j@zx_!fyt%4nwrx5fe%z0f2)&d^ji6^d1+if$'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -55,20 +50,6 @@ ROOT_URLCONF = 'pickem_site.urls'
 WSGI_APPLICATION = 'pickem_site.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pickem',
-        'USER': 'atheiman',
-        'PASSWORD': 'atheimanpass',
-        'HOST': 'pickem.cih0o8lc13of.us-east-1.rds.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -88,6 +69,3 @@ USE_L10N = True
 STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
-
-# LOGIN_URL = '/accounts/login'
-# LOGIN_REDIRECT_URL = '/accounts/profile'
