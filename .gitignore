@@ -2,3 +2,5 @@
 .DS_Store
 db.sqlite3
 datadump.json
+nohup.out
+
