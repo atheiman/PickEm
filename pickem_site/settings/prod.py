@@ -4,7 +4,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['pickem.no-ip.org']
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
