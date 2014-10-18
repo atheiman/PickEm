@@ -11,8 +11,8 @@ class RegisterForm(forms.Form):
 	username = forms.RegexField(
 		label='Username',
 		max_length=30,
-		regex=r'^[a-zA-Z0-9-_]+$',
-		error_messages={'required': 'Please enter your name', 'invalid': 'Alphanumeric characters and underscores and dashes only (a-z, A-Z, 0-9, _, -)'},
+		regex=r'^[a-z0-9-_]+$',
+		error_messages={'required': 'Please enter your name', 'invalid': 'Lowercase alphanumeric characters and underscores and dashes only (a-z, 0-9, _, -)'},
 	)
 	password = forms.CharField(
 		label='Password',
