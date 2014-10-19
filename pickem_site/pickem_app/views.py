@@ -19,6 +19,8 @@ for w in range(1,22):
 
 
 def index(request):
+	if request.user.is_authenticated():
+		return HttpResponseRedirect(reverse('pickem_app:user',kwargs={'username':request.user.username}))
 	context = {
 		'page_title': "Home",
 	}
