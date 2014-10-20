@@ -24,12 +24,6 @@ var weekStartDates = [
 ]
 
 function getWeekStartDate(weekNumber, weekStartDatesArray) {
-	// getWeekStartDate(4) returns the wed before week 4.
-	// getWeekStartDate(18) returns the wed before the wild card round.
-	// getWeekStartDate(19) returns the wed before the divisional round.
-	// getWeekStartDate(20) returns the wed before the championship round.
-	// getWeekStartDate(21) returns the wed before the pro bowl round.
-	// getWeekStartDate(22) returns the wed before the super bowl round.
 	weekStartDatesArray = weekStartDatesArray || weekStartDates;
 	var index = weekNumber - 1;
 	return weekStartDatesArray[index];

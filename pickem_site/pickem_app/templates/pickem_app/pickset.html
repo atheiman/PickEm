@@ -35,11 +35,11 @@
 						</span>
 					</td>
 					<td>
-						<input type="radio" name="game{{ g.id }}" value="{{ AWAY }}"
+						<input type="checkbox" name="game{{ g.id }}" value="{{ AWAY }}"
 						  {% if g.status == OTHER_UNAVAILABLE or g.status == IN_PROGRESS or g.status == COMPLETE or editable == False %}
 						  	disabled
 						  {% endif %}><hr>
-						<input type="radio" name="game{{ g.id }}" value="{{ HOME }}"
+						<input type="checkbox" name="game{{ g.id }}" value="{{ HOME }}"
 						  {% if g.status == OTHER_UNAVAILABLE or g.status == IN_PROGRESS or g.status == COMPLETE or editable == False %}
 						  	disabled
 						  {% endif %}>
@@ -60,25 +60,78 @@
 
 {% block script %}
 <script>
-	{% if pickset %}
-		// select the picks that have already been made for this pickset
-		pickset = [];
-		// set up pickset as array of pick objects using pickset list received from view
-		{% for pick in pickset.picks.all %}
-			// p = new pick({{ pickset.id }}, {{ pick.game.id }}, '{{ pick.pick }}', '{{ pick.abbreviation }}')
-			var p = new pick({{ pickset.id }}, {{ pick.game.id }}, '{{ pick.pick }}', '{{ pick.abbreviation }}', '{{ pick.is_correct }}');
-			pickset.push(p);
-		{% endfor %}
-	{% else %}
-		// No picks made yet
-	{% endif %}
+
+{% if pickset %}
+	// select the picks that have already been made for this pickset if pickset passed to template from view
 	
-	for (var p in pickset) {
-		selectPick(pickset[p].gameId, pickset[p].pick);
+	pickset = [];
+	// set up pickset as array of pick objects using pickset list received from view
+	{% for pick in pickset.picks.all %}
+		var p = new pick({{ pickset.id }}, {{ pick.game.id }}, '{{ pick.pick }}', '{{ pick.abbreviation }}', '{{ pick.is_correct }}');
+		pickset.push(p);
+	{% endfor %}
+{% endif %}
+
+for (var p in pickset) {
+	selectPick(pickset[p].gameId, pickset[p].pick);
+}
+
+formatSpreads();
+highlightCurrentAndSelectedWeek();
+
+function getChecks() {
+	var inputs = document.getElementsByTagName('input');
+	var checks = [];
+	
+	for (var i = 0; i < inputs.length; i++){
+		if (inputs[i].type === 'checkbox') {
+			checks.push(inputs[i]);
+		}
 	}
 	
-	formatSpreads();
-	highlightCurrentAndSelectedWeek();
+	return checks;
+}
+
+function getCheckGroup(check) {
+	var checks = getChecks();
+	var checkGroup = [];
 	
+	for (var c = 0; c < checks.length; c++) {
+		if (checks[c].name === check.name) {
+			checkGroup.push(checks[c]);
+		}
+	}
+	
+	return checkGroup;
+}
+
+function getOtherChecksInGroup(check, checkGroup) {
+	var otherChecksInGroup = [];
+	
+	for (var c = 0; c < checkGroup.length; c++) {
+		if (checkGroup[c] !== check) {
+			otherChecksInGroup.push(checkGroup[c]);
+		}
+	}
+	
+	return otherChecksInGroup;
+}
+
+onload = function() {
+	var checks = getChecks();
+	for (var c = 0; c < checks.length; c++) {
+		checks[c].onclick = checkClick;
+	}
+}
+
+function checkClick(e) {
+	var checkGroup = getCheckGroup(this);
+	var otherChecksInGroup = getOtherChecksInGroup(this, checkGroup);
+	
+	for (var c = 0; c < otherChecksInGroup.length; c++) {
+		otherChecksInGroup[c].checked = false;
+	}
+}
+
 </script>
 {% endblock script %}
