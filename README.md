@@ -80,7 +80,7 @@ root@server:/opt# source /opt/django_env/bin/activate
 (django_env)root@server:/opt# cd PickEm/pickem_site
 
 # Run the server and log to /tmp/django_nohup.out rather than the console
-root@server:/opt# nohup /opt/django_env/bin/python /opt/PickEm/pickem_site/manage.py runserver 0.0.0.0:80 > /tmp/nohup_django.out &
+root@server:/opt# nohup /opt/django_env/bin/python /opt/PickEm/pickem_site/manage.py runserver 0.0.0.0:80 --settings=settings.qa > /tmp/nohup_django.out &
 
 (django_env)root@server:/opt# exit
 ```
