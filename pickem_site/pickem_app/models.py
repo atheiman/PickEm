@@ -68,24 +68,26 @@ class Game(models.Model):
 		return return_string
 		
 	def save(self, *args, **kwargs):
-		# set winner
-		if self.home_score is None or self.away_score is None:
-			self.winner = None
-		elif self.home_score > self.away_score:
-			self.winner = self.home_team
-		elif self.home_score < self.away_score:
-			self.winner = self.away_team
-		else:
-			self.winner = None
-		# set spread_winner
-		if self.home_score is None or self.away_score is None:
-			self.spread_winner = None
-		elif self.home_score + self.spread > self.away_score:
-			self.spread_winner = self.home_team
-		elif self.home_score + self.spread < self.away_score:
-			self.spread_winner = self.away_team
-		else:
-			self.spread_winner = None
+		if self.status == COMPLETE:
+			# set winner
+			if self.home_score is None or self.away_score is None:
+				self.winner = None
+			elif self.home_score > self.away_score:
+				self.winner = self.home_team
+			elif self.home_score < self.away_score:
+				self.winner = self.away_team
+			else:
+				self.winner = None
+			# set spread_winner
+			if self.home_score is None or self.away_score is None:
+				self.spread_winner = None
+			elif self.home_score + self.spread > self.away_score:
+				self.spread_winner = self.home_team
+			elif self.home_score + self.spread < self.away_score:
+				self.spread_winner = self.away_team
+			else:
+				self.spread_winner = None
+		
 		# save
 		super(Game, self).save(*args, **kwargs)
 	
