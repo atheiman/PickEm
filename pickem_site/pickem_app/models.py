@@ -16,9 +16,9 @@ class Team(models.Model):
 	
 	def return_record(self):
 		games = (Game.objects.filter(home_team=self)|Game.objects.filter(away_team=self))
-		games_played_count = games.exclude(spread_winner__isnull=True).count()
-		wins = games.filter(spread_winner=self).count()
-		losses = games.exclude(spread_winner=self).count() - games.filter(spread_winner__isnull=True).count()
+		games_played_count = games.exclude(winner__isnull=True).count()
+		wins = games.filter(winner=self).count()
+		losses = games.exclude(winner=self).count() - games.filter(winner__isnull=True).count()
 		# Check for ties
 		ties = games_played_count - wins - losses
 		if ties != 0:

@@ -121,14 +121,16 @@ def api_pickset(request, pickset_id):
 	for key, value in request.POST.iteritems():
 		if key.startswith('game'):
 			game = Game.objects.get(id=key.strip('game'))
-			pick = value
+			
 			if game in games_already_picked:
-				# UPDATE the pick
+				# UPDATE the pick if previously picked
 				p = Pick.objects.get(pickset=pickset, game=game)
-				p.pick = pick
+				p.pick = value
 			else:
-				# INSERT the pick
-				p = Pick(pickset=pickset, game=game, pick=pick)
+				# INSERT the pick if not yet picked
+				p = Pick(pickset=pickset, game=game, pick=value)
+				# append game to ensure only one pick per game per pickset
+				games_already_picked.append(game)
 			p.save()
 	
 	return HttpResponseRedirect(reverse('pickem_app:pickset', args=(user.username, week)))
