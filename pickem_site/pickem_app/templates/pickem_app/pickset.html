@@ -61,6 +61,7 @@
 {% block script %}
 <script>
 
+// select the picks that are already saved to this pickset
 {% if pickset %}
 	// select the picks that have already been made for this pickset if pickset passed to template from view
 	
@@ -76,8 +77,14 @@ for (var p in pickset) {
 	selectPick(pickset[p].gameId, pickset[p].pick);
 }
 
+
+
+// format the spreads (add a '+' in front of a road favorite spread and other tweaks)
 formatSpreads();
+// indicate the current week and selected week in the week nav bar
 highlightCurrentAndSelectedWeek();
+
+
 
 function getChecks() {
 	var inputs = document.getElementsByTagName('input');

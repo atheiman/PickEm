@@ -33,12 +33,6 @@ function getCurrentWeek(nowDate, weekStartDatesArray) {
 	nowDate = nowDate || new Date();
 	weekStartDatesArray = weekStartDatesArray || weekStartDates;
 	for (var week = 1; week < 23; week++) {
-		// if (nowDate < getWeekStartDate(week)) {
-		// 	var currentWeek = week;
-		// 	break;
-		// } else {
-		// 	var currentWeek = 22
-		// }
 		if ( nowDate > getWeekStartDate(week) && nowDate < getWeekStartDate(week + 1)) {
 			var currentWeek = week;
 		} else if (nowDate < getWeekStartDate(1)) {
@@ -49,6 +43,42 @@ function getCurrentWeek(nowDate, weekStartDatesArray) {
 	}
 	return currentWeek;
 }
+
+function highlightCurrentAndSelectedWeek(weeksNavElement) {
+	weeksNavElement = weeksNavElement || document.getElementById('weeks');
+	if (weeksNavElement.tagName === "NAV") {
+		var currentWeek = getCurrentWeek();
+		var pathArray = window.location.pathname.split('/');
+		var selectedWeek = pathArray[pathArray.length - 1];
+		for (var n in weeksNavElement.childNodes) {
+			var node = weeksNavElement.childNodes[n];
+			if (node.tagName === "A") {
+				if (node.innerHTML == selectedWeek || node.innerHTML == currentWeek) {
+					node.className = "bold large";
+				}
+			}
+		}
+	}
+}
+
+
+
+function formatSpreads(spreadSpans) {
+	spreadSpans = spreadSpans || document.getElementsByClassName('gameSpread');
+	for (var s in spreadSpans) {
+		if (spreadSpans[s].innerHTML) {
+			var spread = spreadSpans[s];
+			if (spread.innerHTML === "0.0") {
+				spread.innerHTML = "0";
+			}
+			if (/^\d+/.test(spread.innerHTML)) {
+				spread.innerHTML = "+" + spread.innerHTML;
+			}
+		}
+	}
+}
+
+
 
 function pick(picksetId, gameId, pick, abbreviation, correct) {
     this.picksetId = picksetId;
@@ -68,69 +98,10 @@ function pick(picksetId, gameId, pick, abbreviation, correct) {
 }
 
 function selectPick(gameId, pick) {
-	element = document.forms["pickForm"]['game' + gameId].value = pick;
-}
-
-// function highlightCurrentWeek(weeksNavElement) {
-// 	weeksNavElement = weeksNavElement || document.getElementById('weeks');
-// 	if (weeksNavElement.tagName === "NAV") {
-// 		var currentWeek = getCurrentWeek();
-// 		for (var n in weeksNavElement.childNodes) {
-// 			var node = weeksNavElement.childNodes[n];
-// 			if (node.tagName === "A") {
-// 				if (node.innerHTML == currentWeek) {
-// 					node.className = "bold large";
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-
-// function highlightSelectedWeek(weeksNavElement) {
-// 	weeksNavElement = weeksNavElement || document.getElementById('weeks');
-// 	if (weeksNavElement.tagName === "NAV") {
-// 		var pathArray = window.location.pathname.split('/');
-// 		var selectedWeek = pathArray[pathArray.length - 1];
-// 		for (var n in weeksNavElement.childNodes) {
-// 			var node = weeksNavElement.childNodes[n];
-// 			if (node.tagName === "A") {
-// 				if (node.innerHTML == selectedWeek) {
-// 					node.className = "bold large";
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-
-function highlightCurrentAndSelectedWeek(weeksNavElement) {
-	weeksNavElement = weeksNavElement || document.getElementById('weeks');
-	if (weeksNavElement.tagName === "NAV") {
-		var currentWeek = getCurrentWeek();
-		var pathArray = window.location.pathname.split('/');
-		var selectedWeek = pathArray[pathArray.length - 1];
-		for (var n in weeksNavElement.childNodes) {
-			var node = weeksNavElement.childNodes[n];
-			if (node.tagName === "A") {
-				if (node.innerHTML == selectedWeek || node.innerHTML == currentWeek) {
-					node.className = "bold large";
-				}
-			}
-		}
-	}
-}
-
-function formatSpreads(spreadSpans) {
-	spreadSpans = spreadSpans || document.getElementsByClassName('gameSpread');
-	for (var s in spreadSpans) {
-		// console.log(typeof(spreadSpans[g].innerHTML));
-		if (spreadSpans[s].innerHTML) {
-			var spread = spreadSpans[s];
-			if (spread.innerHTML === "0.0") {
-				spread.innerHTML = "0";
-			}
-			if (/^\d+/.test(spread.innerHTML)) {
-				spread.innerHTML = "+" + spread.innerHTML;
-			}
+	var options = document.forms["pickForm"]['game' + gameId];
+	for (var o = 0; o < options.length; o++) {
+		if (options[o].value === pick) {
+			options[o].checked = true;
 		}
 	}
 }
