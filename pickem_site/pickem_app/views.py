@@ -113,24 +113,23 @@ def api_pickset(request, pickset_id):
 	
 	# TODO check username of session matches the username of the pickset or fail
 	
-	games_already_picked = []
-	for p in pickset.picks.all():
-		games_already_picked.append(p.game)
+	# need to clear all picks of a pickset and then set them all in this view
+	# currently, the user cannot unset a pick
+	# get pickset
+	# remove all picks from pickset
+	# iterate through submitted picks
+	# save each pick as a member of the pickset
 	
-	# submit the picks to the DB
+	for p in pickset.picks.all():
+		p.delete()
+	
+	# submit picks to the DB
 	for key, value in request.POST.iteritems():
 		if key.startswith('game'):
+			# retrieve the correct game
 			game = Game.objects.get(id=key.strip('game'))
-			
-			if game in games_already_picked:
-				# UPDATE the pick if previously picked
-				p = Pick.objects.get(pickset=pickset, game=game)
-				p.pick = value
-			else:
-				# INSERT the pick if not yet picked
-				p = Pick(pickset=pickset, game=game, pick=value)
-				# append game to ensure only one pick per game per pickset
-				games_already_picked.append(game)
+			# pick on the game
+			p = Pick(pickset=pickset, game=game, pick=value)
 			p.save()
 	
 	return HttpResponseRedirect(reverse('pickem_app:pickset', args=(user.username, week)))

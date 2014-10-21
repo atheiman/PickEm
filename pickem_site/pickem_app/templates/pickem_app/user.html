@@ -3,9 +3,11 @@
 {% block content %}
 	{% if weeks %}
 		<p>View picks:
-		{% for w in weeks %}
-			<a href='{% url 'pickem_app:pickset' view_user.username w %}'>{{ w }}</a>
-		{% endfor %}
+			<nav id='weeks'>
+				{% for w in weeks %}
+					<a href='{% url 'pickem_app:pickset' view_user.username w %}'>{{ w }}</a>
+				{% endfor %}
+			</nav>
 		</p>
 	{% else %}
 		<p>Error - template received no weeks.</p>
@@ -20,3 +22,9 @@
 		<p>Error - template received no user.</p>
 	{% endif %}
 {% endblock content %}
+
+{% block script %}
+<script>
+highlightCurrentWeek();
+</script>
+{% endblock script %}

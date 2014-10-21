@@ -11,19 +11,6 @@ admin.site.index_title = "PickEm Administration Home"
 
 
 
-# def make_published(modeladmin, request, queryset):
-#     queryset.update(status='p')
-# make_published.short_description = "Mark selected stories as published"
-
-# class ArticleAdmin(admin.ModelAdmin):
-#     list_display = ['title', 'status']
-#     ordering = ['title']
-#     actions = [make_published]
-
-# admin.site.register(Article, ArticleAdmin)
-
-
-
 class TeamAdmin(admin.ModelAdmin):
 	fields = ['abbreviation', 'location', 'nickname']
 	list_display = ['id', 'abbreviation', 'location', 'nickname']
@@ -31,15 +18,21 @@ class TeamAdmin(admin.ModelAdmin):
 
 
 
-def make_in_progress(modeladmin, request, queryset):
-	queryset.update(status=IN_PROGRESS)
-make_in_progress.short_description = "Mark selected games as In Progress"
+def make_other_unavailable(modeladmin, request, queryset):
+	queryset.update(status=OTHER_UNAVAILABLE)
+make_other_unavailable.short_description = "Mark selected games as Other Unavailable"
 
 
 
 def make_not_yet_started(modeladmin, request, queryset):
 	queryset.update(status=NOT_YET_STARTED)
 make_not_yet_started.short_description = "Mark selected games as Not Yet Started"
+
+
+
+def make_in_progress(modeladmin, request, queryset):
+	queryset.update(status=IN_PROGRESS)
+make_in_progress.short_description = "Mark selected games as In Progress"
 
 
 
@@ -72,7 +65,7 @@ class GameAdmin(admin.ModelAdmin):
 	]
 	list_filter = ['week',]
 	ordering = ['date_time']
-	actions = [make_in_progress, make_not_yet_started, make_complete]
+	actions = [make_other_unavailable, make_not_yet_started, make_in_progress, make_complete]
 	# search_fields = ['week', 'away_team', 'home_team']
 
 

@@ -44,6 +44,17 @@ function getCurrentWeek(nowDate, weekStartDatesArray) {
 	return currentWeek;
 }
 
+function highlightCurrentWeek(weeksNavElement) {
+	weeksNavElement = weeksNavElement || document.getElementById('weeks');
+	var currentWeek = getCurrentWeek();
+	for (var n in weeksNavElement.childNodes) {
+		var node = weeksNavElement.childNodes[n];
+		if (node.innerHTML == currentWeek) {
+			node.className = "bold large";
+		}
+	}
+}
+
 function highlightCurrentAndSelectedWeek(weeksNavElement) {
 	weeksNavElement = weeksNavElement || document.getElementById('weeks');
 	if (weeksNavElement.tagName === "NAV") {
