@@ -35,6 +35,17 @@
 						</span>
 					</td>
 					<td>
+						{% if g.away_score != None and g.home_score != None %}
+							{{ g.away_score }}
+							<hr>
+							{{ g.home_score }}
+						{% else %}
+							--
+							<hr>
+							--
+						{% endif %}
+					</td>
+					<td>
 						<input type="checkbox" name="game{{ g.id }}" value="{{ AWAY }}"
 						  {% if g.status == OTHER_UNAVAILABLE or g.status == IN_PROGRESS or g.status == COMPLETE or editable == False %}
 						  	disabled
