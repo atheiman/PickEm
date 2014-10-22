@@ -15,10 +15,10 @@
 		
 		<p class='large'>
 			<span
-			{% if pickset.correct < 0 %}class='red'
-			{% elif pickset.correct > 0 %}class='green'
+			{% if pickset.score < 0 %}class='red'
+			{% elif pickset.score > 0 %}class='green'
 			{% endif %}>
-				{{ pickset.correct }}
+				{{ pickset.score }}
 			</span>
 			points out of {{ pickset.attempts }} picks.
 		</p>
@@ -86,7 +86,7 @@
 	pickset = [];
 	// set up pickset as array of pick objects using pickset list received from view
 	{% for pick in pickset.picks.all %}
-		var p = new pick({{ pickset.id }}, {{ pick.game.id }}, '{{ pick.pick }}', '{{ pick.abbreviation }}', '{{ pick.is_correct }}');
+		var p = new pick({{ pickset.id }}, {{ pick.game.id }}, '{{ pick.pick }}', '{{ pick.abbreviation }}', '{{ pick.is_score }}');
 		pickset.push(p);
 	{% endfor %}
 {% endif %}

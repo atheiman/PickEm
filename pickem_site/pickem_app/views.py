@@ -67,7 +67,7 @@ def pickset(request, username, week):
 		pickset = Pickset(user=view_user, week=week)
 		pickset.save()
 	
-	pickset.set_attempts_and_correct()
+	pickset.set_attempts_and_score()
 	
 	games = get_list_or_404(Game.objects.filter(week=week).order_by("date_time"))
 	
