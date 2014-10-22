@@ -13,7 +13,7 @@ $ git clone git@github.com:atheiman/PickEm.git
 
 
 
-### Create a Python VirtualEnv
+### Setup a Python VirtualEnv
 ```Shell
 $ virtualenv pickem_env
 $ source pickem_env/bin/activate
@@ -38,7 +38,7 @@ $ python manage.py loaddata /tmp/datadump.json --settings=settings.dev
 
 ### Run the site locally
 ```Shell
-python manage.py runserver 0.0.0.0:8080 --settings=settings.dev
+$ python manage.py runserver 0.0.0.0:8080 --settings=settings.dev
 ```
 [Try it out!](http://localhost:8080/pickem)
 
