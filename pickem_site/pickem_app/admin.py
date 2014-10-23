@@ -45,6 +45,8 @@ make_in_progress.short_description = "Mark selected games as In Progress"
 
 def make_complete(modeladmin, request, queryset):
 	queryset.update(status=COMPLETE)
+	for q in queryset:
+		q.save()
 make_complete.short_description = "Mark selected games as Complete"
 
 
