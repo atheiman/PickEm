@@ -120,10 +120,11 @@ class Pickset(models.Model):
 		self.score = 0
 		for p in self.picks.all():
 			# increment score for score picks, decrement for missed picks
-			if p.is_score():
-				self.score += 1
-			else:
-				self.score -= 1
+			if p.game == COMPLETE:
+				if p.is_correct():
+					self.score += 1
+				else:
+					self.score -= 1
 		self.save()
 	
 	def __unicode__(self):
