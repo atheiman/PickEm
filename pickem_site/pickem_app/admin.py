@@ -71,6 +71,7 @@ class GameAdmin(admin.ModelAdmin):
 		'date_time',
 		'spread',
 		'spread_winner',
+		'winner',
 	]
 	list_filter = ['week',]
 	ordering = ['date_time']

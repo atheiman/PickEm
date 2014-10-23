@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 import datetime
 
 from global_vars import *
@@ -16,7 +17,7 @@ class Team(models.Model):
 	
 	def return_record(self):
 		games = (Game.objects.filter(home_team=self)|Game.objects.filter(away_team=self))
-		games_played_count = games.exclude(winner__isnull=True).count()
+		games_played_count = games.exclude(~Q(status=COMPLETE)).count()
 		wins = games.filter(winner=self).count()
 		losses = games.exclude(winner=self).count() - games.filter(winner__isnull=True).count()
 		# Check for ties
