@@ -13,7 +13,7 @@
 		<p>Error - template received no weeks.</p>
 	{% endif %}
 	{% if user %}
-		{% if user.email %}
+		{% if view_user.email %}
 			<p>Email: <a href='mailto:{{ view_user.email }}' target='blank'>{{ view_user.email }}</a></p>
 		{% else %}
 			<p>No email provided</p>
