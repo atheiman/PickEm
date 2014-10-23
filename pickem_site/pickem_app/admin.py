@@ -26,12 +26,19 @@ make_other_unavailable.short_description = "Mark selected games as Other Unavail
 
 def make_not_yet_started(modeladmin, request, queryset):
 	queryset.update(status=NOT_YET_STARTED)
+	for q in queryset:
+		q.away_score = q.home_score = None
+		q.save()
 make_not_yet_started.short_description = "Mark selected games as Not Yet Started"
 
 
 
 def make_in_progress(modeladmin, request, queryset):
 	queryset.update(status=IN_PROGRESS)
+	for q in queryset:
+		if q.away_score is None and q.home_score is None:
+			q.away_score = q.home_score = 0
+			q.save()
 make_in_progress.short_description = "Mark selected games as In Progress"
 
 

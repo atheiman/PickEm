@@ -35,6 +35,11 @@ table {  /* Use something like: <table border='1' cellpadding='5'> */
 	text-align:left;
 }
 
+a.no-decoration {
+	text-decoration:none;
+	color:inherit;
+}
+
 .narrowest { width:50px; }
 .narrower { width:100px; }
 .narrow { width:150px; }

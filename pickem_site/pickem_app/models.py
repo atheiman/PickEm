@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 import datetime
 
@@ -103,7 +103,7 @@ class Pickset(models.Model):
 	user = models.ForeignKey(User, related_name='picksets')
 	week = models.PositiveIntegerField(validators=[MaxValueValidator(22)])
 	attempts = models.PositiveIntegerField(validators=[MaxValueValidator(16)], blank=True, null=True)
-	correct = models.PositiveIntegerField(validators=[MaxValueValidator(16)], blank=True, null=True)
+	score = models.IntegerField(validators=[MaxValueValidator(16), MinValueValidator(-16)], blank=True, null=True)
 	
 	GAMETYPE_CHOICES = (
 		(STRAIGHT_UP, "straight-up"),
@@ -115,15 +115,16 @@ class Pickset(models.Model):
 		default='ATS'
 	)
 	
-	def set_attempts_and_correct(self):
+	def set_attempts_and_score(self):
 		self.attempts = self.picks.all().count()
-		self.correct = 0
+		self.score = 0
 		for p in self.picks.all():
-			# increment correct for correct picks, decrement for missed picks
-			if p.is_correct():
-				self.correct += 1
-			else:
-				self.correct -= 1
+			# increment score for score picks, decrement for missed picks
+			if p.game == COMPLETE:
+				if p.is_correct():
+					self.score += 1
+				else:
+					self.score -= 1
 		self.save()
 	
 	def __unicode__(self):

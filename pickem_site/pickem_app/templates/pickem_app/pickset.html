@@ -13,8 +13,15 @@
 	
 	{% if games %}
 		
-		<p class="large">Attempts: {{ pickset.attempts }}<br>
-		Score: {{ pickset.correct }}</p>
+		<p class='large'>
+			<span
+			{% if pickset.score < 0 %}class='red'
+			{% elif pickset.score > 0 %}class='green'
+			{% endif %}>
+				{{ pickset.score }}
+			</span>
+			points out of {{ pickset.attempts }} picks.
+		</p>
 		
 		<form name="pickForm" action="{% url 'pickem_app:api_pickset' pickset.id %}" method="post">
 		{% csrf_token %}
@@ -33,6 +40,17 @@
 							{{ g.home_team.location }} {{ g.home_team.nickname }}
 							(<span class="gameSpread">{{ g.spread }}</span>)
 						</span>
+					</td>
+					<td>
+						{% if g.away_score != None and g.home_score != None %}
+							{{ g.away_score }}
+							<hr>
+							{{ g.home_score }}
+						{% else %}
+							--
+							<hr>
+							--
+						{% endif %}
 					</td>
 					<td>
 						<input type="checkbox" name="game{{ g.id }}" value="{{ AWAY }}"
@@ -68,7 +86,7 @@
 	pickset = [];
 	// set up pickset as array of pick objects using pickset list received from view
 	{% for pick in pickset.picks.all %}
-		var p = new pick({{ pickset.id }}, {{ pick.game.id }}, '{{ pick.pick }}', '{{ pick.abbreviation }}', '{{ pick.is_correct }}');
+		var p = new pick({{ pickset.id }}, {{ pick.game.id }}, '{{ pick.pick }}', '{{ pick.abbreviation }}', '{{ pick.is_score }}');
 		pickset.push(p);
 	{% endfor %}
 {% endif %}
