@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('week', models.PositiveIntegerField(validators=[django.core.validators.MaxValueValidator(22)])),
                 ('attempts', models.PositiveIntegerField(blank=True, null=True, validators=[django.core.validators.MaxValueValidator(16)])),
-                ('correct', models.PositiveIntegerField(blank=True, null=True, validators=[django.core.validators.MaxValueValidator(16)])),
+                ('score', models.IntegerField(blank=True, null=True, validators=[django.core.validators.MaxValueValidator(16), django.core.validators.MinValueValidator(-16)])),
                 ('gametype', models.CharField(default=b'ATS', max_length=19, choices=[(b'SU', b'straight-up'), (b'ATS', b'against the spread')])),
                 ('user', models.ForeignKey(related_name=b'picksets', to=settings.AUTH_USER_MODEL)),
             ],
