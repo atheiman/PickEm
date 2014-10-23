@@ -121,16 +121,18 @@ def api_pickset(request, pickset_id):
 	# save each pick as a member of the pickset
 	
 	for p in pickset.picks.all():
-		p.delete()
+		if p.game.status == OTHER_AVAILABLE or game.status == NOT_YET_STARTED:
+			p.delete()
 	
 	# submit picks to the DB
 	for key, value in request.POST.iteritems():
 		if key.startswith('game'):
 			# retrieve the correct game
 			game = Game.objects.get(id=key.strip('game'))
-			# pick on the game
-			p = Pick(pickset=pickset, game=game, pick=value)
-			p.save()
+			if game.status == OTHER_AVAILABLE or game.status == NOT_YET_STARTED:
+				# pick on the game
+				p = Pick(pickset=pickset, game=game, pick=value)
+				p.save()
 	
 	return HttpResponseRedirect(reverse('pickem_app:pickset', args=(user.username, week)))
 
