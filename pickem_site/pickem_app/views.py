@@ -71,7 +71,7 @@ def pickset(request, username, week):
 	
 	games = get_list_or_404(Game.objects.filter(week=week).order_by("date_time"))
 	
-	page_title = "<a href='/u/%s'>%s</a>'s Week %s Picks" % (view_user.username, view_user.username, week)
+	page_title = "<a href='/pickem/u/%s'>%s</a>'s Week %s Picks" % (view_user.username, view_user.username, week)
 	context = {
 		'pickset': pickset,
 		'view_user': view_user,
@@ -121,16 +121,18 @@ def api_pickset(request, pickset_id):
 	# save each pick as a member of the pickset
 	
 	for p in pickset.picks.all():
-		p.delete()
+		if p.game.status == OTHER_AVAILABLE or game.status == NOT_YET_STARTED:
+			p.delete()
 	
 	# submit picks to the DB
 	for key, value in request.POST.iteritems():
 		if key.startswith('game'):
 			# retrieve the correct game
 			game = Game.objects.get(id=key.strip('game'))
-			# pick on the game
-			p = Pick(pickset=pickset, game=game, pick=value)
-			p.save()
+			if game.status == OTHER_AVAILABLE or game.status == NOT_YET_STARTED:
+				# pick on the game
+				p = Pick(pickset=pickset, game=game, pick=value)
+				p.save()
 	
 	return HttpResponseRedirect(reverse('pickem_app:pickset', args=(user.username, week)))
 
