@@ -71,7 +71,7 @@ def pickset(request, username, week):
 	
 	games = get_list_or_404(Game.objects.filter(week=week).order_by("date_time"))
 	
-	page_title = "<a href='/u/%s'>%s</a>'s Week %s Picks" % (view_user.username, view_user.username, week)
+	page_title = "<a href='/pickem/u/%s'>%s</a>'s Week %s Picks" % (view_user.username, view_user.username, week)
 	context = {
 		'pickset': pickset,
 		'view_user': view_user,
