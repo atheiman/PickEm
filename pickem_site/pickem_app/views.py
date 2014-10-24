@@ -121,7 +121,7 @@ def api_pickset(request, pickset_id):
 	# save each pick as a member of the pickset
 	
 	for p in pickset.picks.all():
-		if p.game.status == OTHER_AVAILABLE or game.status == NOT_YET_STARTED:
+		if p.game.status == OTHER_AVAILABLE or p.game.status == NOT_YET_STARTED:
 			p.delete()
 	
 	# submit picks to the DB
