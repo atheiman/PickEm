@@ -20,3 +20,7 @@ class NflPickemProfile(models.Model):
 		self.season_score = season_score
 		self.season_attempts = season_attempts
 		self.save()
+	
+	def __unicode__(self):
+		# return "team_id:%i, abbreviation:%s" % (self.id, self.abbreviation)
+		return self.user.username
