@@ -1,9 +1,10 @@
 from django.db import models
+from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
 class NflPickemProfile(models.Model):
 	# reference the django user
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User, related_name='NflPickemProfile')
 	
 	season_score = models.IntegerField(blank=True, null=True)
 	season_attempts = models.IntegerField(blank=True, null=True)
@@ -24,3 +25,11 @@ class NflPickemProfile(models.Model):
 	def __unicode__(self):
 		# return "team_id:%i, abbreviation:%s" % (self.id, self.abbreviation)
 		return self.user.username
+
+
+
+def create_user_profile(sender, instance, created, **kwargs):
+	if created:
+		NflPickemProfile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)
