@@ -13,9 +13,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'pickem',
-        'USER': 'atheiman',
-        'PASSWORD': 'atheimanpass',
-        'HOST': 'pickem.cih0o8lc13of.us-east-1.rds.amazonaws.com',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': 'pickem.whatever.us-east-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
